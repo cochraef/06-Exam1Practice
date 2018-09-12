@@ -2,8 +2,8 @@
 PRACTICE Exam 1, problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Valerie Galluzzi, Mark Hays,
-         Amanda Stouder, their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         Amanda Stouder, their colleagues and Evan Cochrane.
+"""  # 1: DONE PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -102,7 +102,7 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # 2: DONE Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -110,6 +110,20 @@ def problem2a(circle, rectangle, window):
     #    DIFFICULTY:      6
     #    TIME ESTIMATE:   10 to 15 minutes.
     # ------------------------------------------------------------------
+    circle.attach_to(window)
+    rectangle.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+
+    line = rg.Line(rectangle.get_upper_right_corner(), rectangle.get_lower_left_corner())
+    line.arrow = 'last'
+    line.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+
+    circle.fill_color = rectangle.outline_color
+    window.render()
+
 
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
@@ -143,7 +157,7 @@ def run_test_problem2b():
     window.close_on_mouse_click()
 
 
-def problem2b(rect, n, delta, win):
+def problem2b(rectangle, n, delta, window):
     """
     See   problem2b_picture.pdf   in this project for pictures
     that may help you better understand the following specification:
@@ -167,13 +181,13 @@ def problem2b(rect, n, delta, win):
       Must render but   ** NOT close **   the window.
 
     Type hints:
-      :type rect:   rg.Rectangle
+      :type rectangle:   rg.Rectangle
       :type n:      int
       :type delta:  int
-      :type win:    rg.RoseWindow
+      :type window:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # 3: DONE Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -182,6 +196,18 @@ def problem2b(rect, n, delta, win):
     #    TIME ESTIMATE:   15 to 25 minutes.
     # ------------------------------------------------------------------
 
+    rectangle.attach_to(window)
+    window.render()
+
+    for k in range(n - 1):
+        corner1 = rg.Point(rectangle.get_upper_right_corner().x + (k + 1)*delta,
+                           rectangle.get_upper_right_corner().y - (k + 1)*delta)
+        corner2 = rg.Point(rectangle.get_lower_left_corner().x - (k + 1)*delta,
+                           rectangle.get_lower_left_corner().y + (k + 1)*delta)
+
+        new_rectangle = rg.Rectangle(corner1, corner2)
+        new_rectangle.attach_to(window)
+        window.render()
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
